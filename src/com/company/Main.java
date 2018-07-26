@@ -5,7 +5,6 @@ import com.company.maker.CoffeeMaker;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         Main obj = new Main();
         obj.dirbam();
@@ -23,7 +22,7 @@ public class Main {
     }
 
     private void dirbam() {
-        CoffeeMaker aparatas = new CoffeeMaker();
+        CoffeeMaker aparatas = CoffeeMaker.getInstance();
         Scanner sc = new Scanner(System.in);
         boolean arTesti = true;
         do {

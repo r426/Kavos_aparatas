@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class CoffeeMaker {
 
-
     public static final int MAX_USES = 5;
     public static final int MAX_WATER = 50;
     public static final int MAX_SUGAR = 10;
@@ -18,14 +17,25 @@ public class CoffeeMaker {
     private int useCount;
     StringBuilder builder;
 
-    public CoffeeMaker() {
+    private static CoffeeMaker firstInstance = null;
+
+    private CoffeeMaker() {
     }
 
-    public CoffeeMaker(float water, float sugar, float beans) {
+    private CoffeeMaker(float water, float sugar, float beans) {
         waterAmount = water;
         sugarAmount = sugar;
         beansAmount = beans;
     }
+
+
+    public static CoffeeMaker getInstance(){
+        if(firstInstance == null){
+            firstInstance = new CoffeeMaker();
+        }
+        return firstInstance;
+    }
+
 
 
     public void fillProducts() {
