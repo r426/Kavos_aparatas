@@ -1,6 +1,8 @@
 package com.company.maker;
 
 import javax.xml.bind.SchemaOutputResolver;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CoffeeMaker {
@@ -14,7 +16,7 @@ public class CoffeeMaker {
     private float waterAmount;
     private float beansAmount;
     private int useCount;
-
+    StringBuilder builder;
 
     public CoffeeMaker() {
     }
@@ -35,7 +37,7 @@ public class CoffeeMaker {
                 System.out.println("How many litres?");
                 float waterToAdd = skaitytuvas.nextFloat();
                 if (waterAmount + waterToAdd < MAX_WATER) {
-                    waterAmount +=  waterToAdd;
+                    waterAmount += waterToAdd;
                 } else {
                     waterToAdd = MAX_WATER - waterAmount;
                     waterAmount = MAX_WATER;
@@ -198,18 +200,51 @@ public class CoffeeMaker {
 
 
     public void showProducts() {
-        System.out.println("=========Product status=========");
-        System.out.println("Sugar amount left:" + sugarAmount);
-        System.out.println("Water amount left:" + waterAmount);
-        System.out.println("Beans amount left:" + beansAmount);
+        builder.append("\n=========Product status=========\n")
+                .append("Sugar amount left:" + sugarAmount + "\n")
+                .append("Water amount left:" + waterAmount + "\n")
+                .append("Beans amount left:" + beansAmount + "\n");
+        System.out.println(builder.toString());
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("Kavos_aparatas_dabar.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            writer.write(String.valueOf(builder));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
 
     public void showStatus() {
-        System.out.println("=========Maker status============");
-        System.out.println("Usages left:" + (MAX_USES - this.useCount));
-        System.out.println("is machine ready:" + isReady());
+
+        builder = new StringBuilder("");
+        builder.append("=========Maker status============\nUsages left: ")
+                .append(MAX_USES - this.useCount)
+                .append("\nIs machine ready? ")
+                .append(isReady());
+
+
+//        System.out.println(builder);)
+//        System.out.println(builder);
+//        System.out.println(builder);
+//        System.out.println(builder);
+//        System.out.println(builder);
+//        System.out.println(builder);
+//        System.out.println(builder);
+
         this.showProducts();
     }
 
